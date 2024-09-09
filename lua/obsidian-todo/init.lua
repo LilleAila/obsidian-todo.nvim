@@ -49,8 +49,9 @@ M.obsidian_todos = function(opts)
   }):find()
 end
 
-M.obsidian_todos(require("telescope.themes").get_dropdown({
-  vault_path = "/home/olai/Documents/Obsidian Vault"
-}))
+-- Testing
+-- M.obsidian_todos(require("telescope.themes").get_dropdown({
+--   vault_path = "/home/olai/Documents/Obsidian Vault"
+-- }))
 
 return M

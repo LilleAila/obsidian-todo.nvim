@@ -3,8 +3,6 @@ return require("telescope").register_extension({
     config.vault_path = ext_config.vault_path
   end,
   exports = {
-    obsidian_todos = function(opts)
-      require("plugin_name").obsidian_todos(opts)
-    end
-  }
+    obsidian_todo = require("obsidian-todo").obsidian_todos,
+  },
 })
