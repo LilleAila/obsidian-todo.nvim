@@ -12,7 +12,7 @@ M.obsidian_todos = function(opts)
   opts = opts or {}
 
   local base_command = opts.vimgrep_arguments or conf.vimgrep_arguments
-  local args = { "\\- \\[ \\]", opts.vault_path or conf.vault_path }
+  local args = { "\\- \\[ \\]", opts.search_path or conf.search_path }
   local command = utils.flatten({ base_command, args })
 
   pickers.new(opts, {

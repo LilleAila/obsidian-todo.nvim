@@ -1,8 +1,8 @@
 return require("telescope").register_extension({
   setup = function(ext_config, config)
-    config.vault_path = ext_config.vault_path
+    config.search_path = ext_config.search_path
   end,
   exports = {
-    ["obsidian-todo"] = require("obsidian-todo").obsidian_todos,
+    obsidian_todo = require("obsidian-todo").obsidian_todos,
   },
 })
