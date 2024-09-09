@@ -32,7 +32,8 @@ M.obsidian_todos = function(opts)
           col = nil
         end
 
-        display = vim.fn.fnamemodify(filename, ":t") .. " - " .. text:gsub("%- %[ %] " ,"")
+        -- Get basename and remove file extension
+        display = vim.fn.fnamemodify(filename, ":t"):gsub("%..+$", "") .. " - " .. text:gsub("%- %[ %] " ,"")
 
         return {
           value = entry, -- Original value
