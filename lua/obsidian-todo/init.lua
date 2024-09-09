@@ -20,7 +20,6 @@ M.obsidian_todos = function(opts)
     finder = finders.new_oneshot_job(command, {
       entry_maker = opts.entry_maker or function(entry)
         local _, _, filename, lnum, col, text = string.find(entry, [[(..-):(%d+):(%d+):(.*)]])
-        print(filename .. lnum .. col .. text)
 
         local ok
         ok, lnum = pcall(tonumber, lnum)
