@@ -31,7 +31,7 @@ Add this to your telescope configuration:
 require("telescope").setup({
     extensions = {
         obsidian_todo = {
-            search_path = "/path/to/your/vault", -- This has to be an absolute path
+            search_path = "$HOME/path/to/your/vault",
             search_pattern = "- [ ] ", -- This is the default value
         },
     },

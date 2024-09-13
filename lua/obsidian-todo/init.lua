@@ -25,8 +25,10 @@ M.obsidian_todo = function(opts)
   local regex_pattern = regex_escape(search_pattern)
   local lua_pattern = lua_pattern_escape(search_pattern)
 
+  local search_path = (opts.search_path or conf.search_path):gsub("$HOME", os.getenv("HOME"))
+
   local base_command = opts.vimgrep_arguments or conf.vimgrep_arguments
-  local args = { regex_pattern, opts.search_path or conf.search_path }
+  local args = { regex_pattern, search_path }
   local command = utils.flatten({ base_command, args })
 
   pickers.new(opts, {
@@ -66,7 +68,7 @@ end
 
 -- Testing
 -- M.obsidian_todo({
---   vault_path = "/home/olai/Documents/Obsidian Vault",
+--   search_path = "$HOME/Documents/Obsidian Vault",
 --   search_pattern = "- [ ] "
 -- })
 
