@@ -46,12 +46,13 @@ M.obsidian_todo = function(opts)
           col = nil
         end
 
+        local content = text:gsub(lua_pattern, "")
         -- Get basename and remove file extension
-        display = vim.fn.fnamemodify(filename, ":t"):gsub("%..+$", "") .. " - " .. text:gsub(lua_pattern ,"")
+        local display = vim.fn.fnamemodify(filename, ":t"):gsub("%..+$", "") .. " - " .. content
 
         return {
           value = entry, -- Original value
-          ordinal = filename, -- Sorted by (i think this causes issues with searching, maybe change to same as display?)
+          ordinal = display, -- Sorted by
           display = display, -- Displayed
           filename = filename, -- Absolute path
           lnum = lnum,
