@@ -8,11 +8,25 @@ local utils = require("telescope.utils")
 
 local M = {}
 
-M.obsidian_todos = function(opts)
+local lua_pattern_escape = function(text)
+  local pattern_specials = "().%+-*?[]^$"
+  return text:gsub("[" .. pattern_specials:gsub("(.)", "%%%1") .. "]", "%%%1")
+end
+
+local regex_escape = function(text)
+  local pattern_specials = "().%+-*?[]^$"
+  return text:gsub("[" .. pattern_specials:gsub("(.)", "%%%1") .. "]", "\\%1")
+end
+
+M.obsidian_todo = function(opts)
   opts = opts or {}
 
+  local search_pattern = opts.search_pattern or conf.search_pattern
+  local regex_pattern = regex_escape(search_pattern)
+  local lua_pattern = lua_pattern_escape(search_pattern)
+
   local base_command = opts.vimgrep_arguments or conf.vimgrep_arguments
-  local args = { "\\- \\[ \\]", opts.search_path or conf.search_path }
+  local args = { regex_pattern, opts.search_path or conf.search_path }
   local command = utils.flatten({ base_command, args })
 
   pickers.new(opts, {
@@ -33,11 +47,11 @@ M.obsidian_todos = function(opts)
         end
 
         -- Get basename and remove file extension
-        display = vim.fn.fnamemodify(filename, ":t"):gsub("%..+$", "") .. " - " .. text:gsub("%- %[ %] " ,"")
+        display = vim.fn.fnamemodify(filename, ":t"):gsub("%..+$", "") .. " - " .. text:gsub(lua_pattern ,"")
 
         return {
           value = entry, -- Original value
-          ordinal = filename, -- Sorted by
+          ordinal = filename, -- Sorted by (i think this causes issues with searching, maybe change to same as display?)
           display = display, -- Displayed
           filename = filename, -- Absolute path
           lnum = lnum,
@@ -50,8 +64,9 @@ M.obsidian_todos = function(opts)
 end
 
 -- Testing
--- M.obsidian_todos(require("telescope.themes").get_dropdown({
---   vault_path = "/home/olai/Documents/Obsidian Vault"
--- }))
+-- M.obsidian_todo({
+--   vault_path = "/home/olai/Documents/Obsidian Vault",
+--   search_pattern = "- [ ] "
+-- })
 
 return M

@@ -1,6 +1,6 @@
 # obsidian-todo.nvim
 
-Easily search through your TODO items with telescope. This searches for all unchecked check boxes and displays them in a list.
+Easily search through your obsidian TODOs items with telescope.
 
 ## Usage
 
@@ -31,7 +31,8 @@ Add this to your telescope configuration:
 require("telescope").setup({
     extensions = {
         obsidian_todo = {
-            search_path = "/path/to/your/vault"
+            search_path = "/path/to/your/vault", -- This has to be an absolute path
+            search_pattern = "- [ ] ", -- This is the default value
         },
     },
 })
@@ -51,10 +52,10 @@ inputs.obsidian-todo = {
 Add this to your configuration:
 
 ```nix
-extraPlugins = [ inputs.plugin-obsidian-todo.packages.${pkgs.system}.default ];
+extraPlugins = [ inputs.obsidian-todo.packages.${pkgs.system}.default ];
 
 plugins.telescope.settings.extensions.obsidian_todo = {
-search_path = "/home/olai/Documents/Obsidian Vault";
+    search_path = "/path/to/your/vault";
 };
 
 extraConfigLua = # lua
