@@ -13,6 +13,7 @@
         default = pkgs.vimUtils.buildVimPlugin {
           name = "obsidian-todo.nvim";
           src = ./.;
+          dependencies = [pkgs.vimPlugins.telescope-nvim];
         };
       });
     };
